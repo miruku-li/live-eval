@@ -1,4 +1,4 @@
-import c from 'https://miruku.li/vendor/crelt.js'
+import c from '../vendor/crelt.js'
 
 class LiveEval extends HTMLElement {
   
