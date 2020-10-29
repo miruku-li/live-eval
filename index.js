@@ -1,21 +1,29 @@
-import m from '/vendor/mithril.js'
-import b from '/vendor/bss.js'
+import c from 'https://miruku.li/vendor/crelt.js'
 
-let cur = '', evaluated, update = (value) => {
-  try {
-    evaluated = JSON.stringify(eval(cur = value))
-  } catch (ex) {
-    evaluated = ex.message
+class LiveEval extends HTMLElement {
+  
+  constructor() {
+    super();
+    const update = (v) => {
+      value = v; try {
+        pre.innerHTML = eval(v)
+      } catch (ex) {
+        pre.innerHTML = ex.message
+      }
+    }
+    let shadow = this.attachShadow({mode: 'open'});
+    let value = 'bar', pre
+    shadow.appendChild(c('div', {
+        style: 'display:flex;flex-direction: column;border: 1px solid silver'
+      },
+      c('input', {
+        value,
+        oninput: ({target}) => update(target.value)
+      }), 
+      c('pre')
+    ))
+    pre = shadow.querySelector('pre')
   }
-};
 
-let index  = {
-  view: () => m('div'+b`d flex; fd column;border 1px solid silver`, 
-    m('input', { 
-      oninput: ({target}) => update(target.value)
-    }), 
-    m('pre', evaluated)
-  )
 }
-
-m.mount(document.body, index)
+customElements.define('mirukuli-live-eval', LiveEval);
