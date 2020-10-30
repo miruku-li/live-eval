@@ -1,7 +1,6 @@
-import c from "../vendor/crelt.js";
+import c from "/vendor/crelt.js";
 
-class LiveEval extends HTMLElement {
-  // test
+export default class LiveEval extends HTMLElement {
   constructor() {
     super();
     const update = v => {
@@ -31,4 +30,5 @@ class LiveEval extends HTMLElement {
     pre = shadow.querySelector("pre");
   }
 }
+
 customElements.define("mirukuli-live-eval", LiveEval);
